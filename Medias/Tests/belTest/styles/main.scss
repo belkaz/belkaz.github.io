@@ -1,0 +1,54 @@
+@mixin standartSize{
+    position: absolute;
+    width: 1000px;
+    top: 50%;
+    margin-left: -500px;   
+}
+#main{     
+    @include standartSize;
+    left: 50%;
+    height:  700px;      
+    margin-top: -350px;
+    overflow: hidden;
+}
+.forms {
+    @include standartSize;
+    height: 500px;  
+    margin-top: -220px;
+    left: 150%;
+}
+.m0, .m1,.r0,.r1 {
+    position: absolute;
+    overflow-wrap: break-word;
+    font: 30px "Times New Roman";
+    }
+.m1, .r1{
+    width: 90%;
+    text-align: left;
+}
+
+#ansBut {
+    position: absolute;
+    left: 50%;
+    width: 150px;
+    margin-left: -75px;
+    top: 800px;
+}
+
+#Quest{
+    position: absolute;  
+    overflow-wrap: break-word;
+    width: 100%;
+    top: 5px;
+    text-align:center;
+    font: 40px "Times New Roman";
+}
+
+#b_ans{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 500px;
+    margin-left: -250px;
+    text-align: center;
+}

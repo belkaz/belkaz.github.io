@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+    <style>
+        #main{
+            position: absolute;
+            width: 1000px;
+            height: 400px;
+            left: 50%;
+            top: 50%;
+            
+            margin-left: -500px;
+            margin-top: -200px;
+            box-shadow: 0 0 0 1px lightgray;
+            overflow: hidden;
+        }
+        p{
+           position: absolute;
+           left: 0px;
+           width: 100%;
+           top: 10px;
+           font:40px 'Times New Roman';
+           text-align: center;
+        }
+        #result{
+            left: 105%;
+            font:35px "Times New Roman";
+            text-align: center;
+            top: 40%;
+        }
+        #r0,#r1,#r2{
+            position: absolute;
+            left: 50px;
+            top: 170px;
+            font:20px 'Times New Roman';
+            checked:false;
+        }
+        #r1{
+            top: 220px;
+        }
+        #r2{
+            top: 270px;
+        }
+        #but1{
+            position: absolute;
+            left: 50%;
+            top: 300px;
+            margin-left: -100px;
+            font: 40px 'Times New Roman';
+        }
+        #l0,#l1,#l2{
+            position: absolute;
+            left: 75px;
+            top: 121px;
+            font:35px 'Times New Roman';
+            text-align: left;
+        }
+        #l1{
+            top: 171px;
+        }
+        #l2{
+            top: 221px;
+        }
+    </style>
+<body>
+      <div id="main">
+          <p id="quest">Адзнач прыслоўе, якое пішацца разам</p>
+          <input type="radio" id="r0" class="r"><p id="l0" class="l">вывучыць (на) памяць</p>
+          <input type="radio" id="r1" class="r"><p id="l1" class="l">зрабіць (па) вашаму</p>
+          <input type="radio" id="r2" class="r"><p id="l2" class="l">(у) першыню ўбачыў</p>
+          <input type="button" id="but1" value="Адказаць">
+          <p id="result">Ваш вынік:</p>            
+      </div>
+</body>
+<script>
+    var quests=[];
+    quests[0]='Адзнач прыслоўе, якое пішацца разам';
+    quests[1]='Адзнач словазлучэнне, у якім на месцы пропуску трэба пісаць літару і';
+    quests[2]='Адзнач словазлучэнне, у якім прыслоўе пішацца з часціцай НЕ асобна';
+    quests[3]='Адзнач прыслоўе, у якім правільна пастаўлены націск';
+    quests[4]='Адзнач блізкае да прыслоўя спалучэнне, якое пішацца асобна';
+    quests[5]='Адзнач слова, якое пішацца праз злучок';
+    var answers=[];
+    for (var i=0;i<6;i++){answers[i]=[];}
+    answers[0][0]='вывучыць (на) памяць';answers[0][1]='зрабіць (па) вашаму';answers[0][2]='(у) першыню ўбачыў';
+    answers[1][0]='н...калі сустракаліся';answers[1][1]='н...дзе зусім побач';answers[1][2]='н...дзе не відаць';
+    answers[2][0]='зраблю (не) сёння';answers[2][1]='(не) абходна зрабіць';answers[2][2]='(не) таропка ісці';
+    answers[3][0]='накарміць дасытА';answers[3][1]='крыхУ паспаць';answers[3][2]='стаялі абaпAл';
+    answers[4][0]='(як) раз насупраць';answers[4][1]='адказаць (на) хаду';answers[4][2]='разбураны (да) шчэнту';
+    answers[5][0]='(па) ціху';answers[5][1]='(на) заўтра';answers[5][2]='(абы) куды';
+    var checks=document.getElementsByClassName('r');    
+    for (var i=0;i<3;i++){
+        checks[i].onclick=function(){
+            console.log('');
+         checks[0].checked=false;
+         checks[1].checked=false;
+         checks[2].checked=false;
+         this.checked=true;          
+        }        
+    }
+    var labels=document.getElementsByClassName('l');
+    for (var i=0;i<3;i++){
+        labels[i].onclick=function(){
+         checks[0].checked=false;
+         checks[1].checked=false;
+         checks[2].checked=false;
+         checks[this.id[1]/1].checked=true;      
+        }        
+    }
+   
+    var nowQuest=0;
+    
+    var showText=function(){
+        document.getElementById('quest').innerText=quests[nowQuest];  
+        labels[0].innerText=answers[nowQuest][0];  
+         labels[1].innerText=answers[nowQuest][1];  
+          labels[2].innerText=answers[nowQuest][2];      
+    }
+    showText();
+    var checkRight=function(){
+        var ans='';
+        if (checks[0].checked){ans=labels[0].innerText};
+        if (checks[1].checked){ans=labels[1].innerText};
+        if (checks[2].checked){ans=labels[2].innerText};
+        if (!checks[0].checked && !checks[1].checked && !checks[2].checked){ans='N'} 
+        console.log(ans);
+        return ans;
+    }
+    var rigthsAnswers=['(у) першыню ўбачыў','н...дзе не відаць','зраблю (не) сёння','крыхУ паспаць','адказаць (на) хаду','(абы) куды'];
+    var rightCount=0;
+    document.getElementById('but1').onclick=function(){
+        if (nowQuest<5){
+            if (checkRight()=='N') {alert('Не выбраны адказ!')}
+            else {
+                if (checkRight()==rigthsAnswers[nowQuest]){rightCount++;}
+                  nowQuest++;  
+                  checks[0].checked=false;
+                  checks[1].checked=false;
+                  checks[2].checked=false;                
+                }          
+            showText();
+        }
+        else{
+             if (checkRight()=='N') {alert('Не выбраны адказ!')}
+            else {
+                if (checkRight()==rigthsAnswers[nowQuest]){rightCount++;}
+                  nowQuest++;                  
+            }     
+            document.getElementById('quest').style.left=-105+"%";
+            labels[0].style.left=-105+'%';
+            labels[1].style.left=-105+'%';
+            labels[2].style.left=-105+'%';
+            checks[0].style.left=-105+'%';
+            checks[1].style.left=-105+'%';
+            checks[2].style.left=-105+'%';
+            document.getElementById('but1').style.left=-105+'%';   
+            console.log(rightCount);  
+            if (rightCount==0){document.getElementById('result').innerText='Няма верных адказаў.Паўтары тэму!';}
+             if (rightCount==1){document.getElementById('result').innerText='1 дакладны адказ. Паўтары тэму!';}
+              if (rightCount==2){document.getElementById('result').innerText='2 дакладныя адказы.Паўтары тэму!';}
+               if (rightCount==3){document.getElementById('result').innerText='Толькі 3 дакладныя адказы.Бяры кнігу і вучыся!';}
+                if (rightCount==4){document.getElementById('result').innerText='4 дакладныя адказы. Добра, але есць прабелы.';}
+                 if (rightCount==5){document.getElementById('result').innerText='Нядрэнна, але толькі 5 дакладных адказаў.';} 
+                  if (rightCount==6){document.getElementById('result').innerText='Малайчынка! Цудоўны вынік!';}     
+           document.getElementById('result').style.left=0;
+                        
+        }
+    }
+    
+</script>
+</html>

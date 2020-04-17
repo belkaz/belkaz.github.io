@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    #main{
+        position: absolute;
+        width: 800px;
+        height: 600px;
+        left: 50%;
+        top:50%;
+        margin-left: -400px;
+        margin-top: -300px;
+        border: 1px solid black;
+        overflow: hidden;
+    }
+    p{
+        width: 250px;
+        position: absolute;
+        border: 1px solid black;
+        border-radius: 2px;
+        box-shadow:  0 0 15px rgba(2,2,2,1);
+        left: 10%;
+        font-size: 45px;
+        align-content: center;
+
+    }
+    #var1{
+        top: 10px;
+        left: 0%;
+    }
+    #var2{
+        top: 10px;
+        left: 35%;    }
+    #var3{
+        top: 10px;
+        left: 70%;
+    }
+    #var4{
+        top: 150px;
+        left: 15%;
+    }
+    #var5{
+        top: 150px;
+        left: 55%;
+    }
+    #Next{
+        position: absolute;
+        top: 500px;
+        left: 50%;
+        margin-left: -140px;
+        font-size: 20px;
+    }
+    #MainWord{
+        width: 420px;
+        left: 0px;
+        top: 355px;
+    }
+    #targetArea{
+        position: absolute;
+        left: 400px;
+        top: 375px;
+        width: 300px;
+        height: 100px;
+        border: 1px dotted black;
+    }
+    #result{
+        position: absolute;
+        left: 2000px;
+        top: 50%;
+        margin-top: -300px;
+        margin-left: -400px;
+        width: 800px;
+        height: 600px;
+    }
+    #res{
+        width: 600px;
+        top: 50%;
+        margin-top: -50px;
+        font-size: 40px;
+    }
+</style>
+<body>
+<script src="jquery-1.11.2.min.js"></script>
+<script src="jquery-ui.min.js"></script>
+<div id="main">
+    <p align="center" id="var1" class="additional"> позірк </p>
+    <p align="center" id="var2" class="additional">кіпцюр</p>
+    <p align="center" id="var3" class="additional">хвост</p>
+    <p  align="center" id="var4" class="additional">білет</p>
+    <p align="center" id="var5" class="additional">зграя</p>
+
+    <p align="center" id="MainWord">ая)</p>
+    <div id="targetArea"></div>
+    <input type="button" value="Наступны фразеалагізм" id="Next">
+</div>
+<div id="result">
+    <p align="center" id="res"></p>
+</div>
+<script>
+    var questBase=new Array();
+    for (var i=0;i<35;i++){questBase[i]=new Array()};
+
+    questBase[0][0]="Воўч(ы, -ая)"; questBase[0][1]="позірк";questBase[0][2]="кіпцюр";
+    questBase[0][3]="хвост"; questBase[0][4]="білет"; questBase[0][5]="зграя";
+    questBase[0][6]="білет";
+
+    questBase[1][0]="Бабіна"; questBase[1][1]="хустка";questBase[1][2]="кніжка";
+    questBase[1][3]="спадніца"; questBase[1][4]="хата"; questBase[1][5]="лета";
+    questBase[1][6]="лета";
+
+    questBase[2][0]="Доўг(-і, -ія, -ая)"; questBase[2][1]="размовы";questBase[2][2]="білет";
+    questBase[2][3]="розум"; questBase[2][4]="дарога"; questBase[2][5]="язык";
+    questBase[2][6]="язык";
+
+    questBase[3][0]="Вялік(-і, -ія, -ая, -ае)"; questBase[3][1]="будынак";questBase[3][2]="краіна";
+    questBase[3][3]="сэрца"; questBase[3][4]="дасягненні"; questBase[3][5]="мара";
+    questBase[3][6]="сэрца";
+
+    questBase[4][0]="Грамата"; questBase[4][1]="беларуская";questBase[4][2]="кітайская";
+    questBase[4][3]="аб'ёмная"; questBase[4][4]="славянская"; questBase[4][5]="старажытная";
+    questBase[4][6]="кітайская";
+
+    questBase[5][0]="Пята"; questBase[5][1]="чалавечая";questBase[5][2]="геркулеcава";
+    questBase[5][3]="зеўсава"; questBase[5][4]="ахілесава"; questBase[5][5]="аідава";
+    questBase[5][6]="ахілесава";
+
+    questBase[6][0]="Снег"; questBase[6][1]="леташні";questBase[6][2]="брудны";
+    questBase[6][3]="чысты"; questBase[6][4]="пазалеташні"; questBase[6][5]="ідзе";
+    questBase[6][6]="леташні";
+
+    questBase[7][0]="Мёртв(-ая, -ы)"; questBase[7][1]="пятля";questBase[7][2]="хватка";
+    questBase[7][3]="птушка"; questBase[7][4]="паляна"; questBase[7][5]="чалавек";
+    questBase[7][6]="хватка";
+
+    questBase[8][0]="Вольны"; questBase[8][1]="чалавек";questBase[8][2]="казак";
+    questBase[8][3]="вецер"; questBase[8][4]="мужык"; questBase[8][5]="дзень";
+    questBase[8][6]="казак";
+    
+    questBase[9][0]="Асёл"; questBase[9][1]="дзікі";questBase[9][2]="шэры";
+    questBase[9][3]="упарты"; questBase[9][4]="маляваны"; questBase[9][5]="стары";
+    questBase[9][6]="маляваны";
+    
+    questBase[10][0]="За ... шведам"; questBase[10][1]="бабай";questBase[10][2]="унучкай";
+    questBase[10][3]="гарой"; questBase[10][4]="лесам"; questBase[10][5]="дзедам";
+    questBase[10][6]="дзедам ";
+    
+    questBase[11][0]="Душа"; questBase[11][1]="легкая";questBase[11][2]="лятае";
+    questBase[11][3]="дзеда"; questBase[11][4]="святая"; questBase[11][5]="ў душу";
+    questBase[11][6]="ў душу";
+    
+     questBase[12][0]="Як ... ў вадзе"; questBase[12][1]="карась";questBase[12][2]="акула";
+    questBase[12][3]="расліна"; questBase[12][4]="лісце"; questBase[12][5]="рыба";
+    questBase[12][6]="рыба";
+    
+     questBase[13][0]="Як ... ў рот набраў "; questBase[13][1]="жартаў";questBase[13][2]="вады";
+    questBase[13][3]="смяшынак"; questBase[13][4]="кпін"; questBase[13][5]="гора";
+    questBase[13][6]="вады";
+    
+    questBase[14][0]="Зух "; questBase[14][1]="герой";questBase[14][2]="арол";
+    questBase[14][3]="трус"; questBase[14][4]="чалавек"; questBase[14][5]="супраць мух";
+    questBase[14][6]="супраць мух";
+    
+    questBase[15][0]="Ногі "; questBase[15][1]="рукі";questBase[15][2]="дзеці";
+    questBase[15][3]="глупствы"; questBase[15][4]="веды"; questBase[15][5]="занеслі";
+    questBase[15][6]="занеслі";
+    
+    questBase[16][0]="Як на"; questBase[16][1]="відэльцах";questBase[16][2]="сталах";
+    questBase[16][3]="абрусах"; questBase[16][4]="дамах"; questBase[16][5]="нажах";
+    questBase[16][6]="нажах";
+    
+    questBase[17][0]="Рабіць з ... слана"; questBase[17][1]="камара";questBase[17][2]="пчалы";
+    questBase[17][3]="асы"; questBase[17][4]="дробязі"; questBase[17][5]="мухі";
+    questBase[17][6]="мухі";
+    
+    questBase[18][0]="На .... небе"; questBase[18][1]="першым";questBase[18][2]="сёмым";
+    questBase[18][3]="высокім"; questBase[18][4]="блакітным"; questBase[18][5]="пятым";
+    questBase[18][6]="сёмым";
+    
+    questBase[19][0]="Абліць"; questBase[19][1]="граззю";questBase[19][2]="вадой";
+    questBase[19][3]="брудам"; questBase[19][4]="кпінам"; questBase[19][5]="сокам";
+    questBase[19][6]="граззю";
+    
+    questBase[20][0]="Ад .... адскоквае"; questBase[20][1]="сцяны";questBase[20][2]="галавы";
+    questBase[20][3]="розуму"; questBase[20][4]="шчасця"; questBase[20][5]="зубоў";
+    questBase[20][6]="зубоў";
+    
+    questBase[21][0]="Адплюшчыць"; questBase[21][1]="вочы";questBase[21][2]="дзверы";
+    questBase[21][3]="кнігі"; questBase[21][4]="вокны"; questBase[21][5]="бутэлькі";
+    questBase[21][6]="вочы";
+    
+    questBase[22][0]=".... работа"; questBase[22][1]="герадотава";questBase[22][2]="ясонава";
+    questBase[22][3]="перыклава"; questBase[22][4]="ахілесава"; questBase[22][5]="сізіфава";
+    questBase[22][6]="сізіфава";
+    
+    questBase[23][0]="Біць"; questBase[23][1]="бібікі";questBase[23][2]="суседа";
+    questBase[23][3]="плот"; questBase[23][4]="дрэва"; questBase[23][5]="сябра";
+    questBase[23][6]="бібікі";
+    
+      questBase[24][0]="Як тапелец за "; questBase[24][1]="саломінку";questBase[24][2]="дрэва";
+    questBase[24][3]="бервяно"; questBase[24][4]="сцябло"; questBase[24][5]="кусцік";
+    questBase[24][6]="саломінку";
+    
+      questBase[25][0]=".... баль"; questBase[25][1]="валтарасаў";questBase[25][2]="школьны";
+    questBase[25][3]="легкадумны"; questBase[25][4]="бядотны"; questBase[25][5]="летні";
+    questBase[25][6]="валтарасаў";
+    
+     questBase[26][0]=".... завыць"; questBase[26][1]="ваўком";questBase[26][2]="зверам";
+    questBase[26][3]="мядзведзем"; questBase[26][4]="сабакам"; questBase[26][5]="катом";
+    questBase[26][6]="ваўком";
+    
+     questBase[27][0]="выпіць чашу да"; questBase[27][1]="дна";questBase[27][2]="канца";
+    questBase[27][3]="кроплі"; questBase[27][4]="суседа"; questBase[27][5]="сярэдзіны";
+    questBase[27][6]="дна";
+    
+     questBase[28][0]="выпусціць"; questBase[28][1]="пару";questBase[28][2]="ката";
+    questBase[28][3]="сабаку"; questBase[28][4]="госця"; questBase[28][5]="гнеў";
+    questBase[28][6]="пару";
+    
+     questBase[29][0]="выхад"; questBase[29][1]="з-пад пяра";questBase[29][2]="з гасцей";
+    questBase[29][3]="ад сяброў"; questBase[29][4]="акцера"; questBase[29][5]="генія";
+    questBase[29][6]="з-пад пяра";
+    
+     questBase[30][0]="выціраць"; questBase[30][1]="ногі";questBase[30][2]="лэб";
+    questBase[30][3]="галаву"; questBase[30][4]="твар"; questBase[30][5]="машыну";
+    questBase[30][6]="ногі";
+    
+       questBase[31][0]="вясельны"; questBase[31][1]="генерал";questBase[31][2]="майор";
+    questBase[31][3]="капітан"; questBase[31][4]="госць"; questBase[31][5]="сяржант";
+    questBase[31][6]="генерал";
+    
+       questBase[32][0]="глытаць"; questBase[32][1]="словы";questBase[32][2]="ежу";
+    questBase[32][3]="звяроў"; questBase[32][4]="салодкое"; questBase[32][5]="смачнае";
+    questBase[32][6]="словы";
+    
+       questBase[33][0]="губляць"; questBase[33][1]="тэлефон";questBase[33][2]="памяць";
+    questBase[33][3]="блізкіх"; questBase[33][4]="сябе"; questBase[33][5]="аловак";
+    questBase[33][6]="сябе";    
+    
+       questBase[34][0]="гуляць у адны"; questBase[34][1]="гульні";questBase[34][2]="словы";
+    questBase[34][3]="фразы"; questBase[34][4]="сказы"; questBase[34][5]="вароты";
+    questBase[34][6]="вароты";
+    
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex ;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+    questBase=shuffle(questBase);
+
+    var UserAnswers=new Array();
+    var RightAns=new Array();
+
+    var SelecetedElem="";
+
+    var questNumber=0;
+
+    $(document).ready(function(){
+        var $mainWord=$("#MainWord");
+        var $p1=$("#var1");
+        var $p2=$("#var2");
+        var $p3=$("#var3");
+        var $p4=$("#var4");
+        var $p5=$("#var5");
+        $mainWord[0].innerHTML=questBase[questNumber][0];
+        $p1[0].innerHTML=questBase[questNumber][1];
+        $p2[0].innerHTML=questBase[questNumber][2];
+        $p3[0].innerHTML=questBase[questNumber][3];
+        $p4[0].innerHTML=questBase[questNumber][4];
+        $p5[0].innerHTML=questBase[questNumber][5];
+        RightAns[questNumber]=questBase[questNumber][6];
+
+        $p1.draggable();
+        $p2.draggable();
+        $p3.draggable();
+        $p4.draggable();
+        $p5.draggable();
+
+
+        var $area=$("#targetArea");
+        $area.droppable({
+                drop:function(event,ui) {
+                   SelecetedElem=ui.draggable;
+                }
+        }
+        );
+        $("#Next").click(function(){
+            UserAnswers[questNumber]=SelecetedElem.html();
+            questNumber++;
+            if (questNumber==5){
+                $("#main").animate({"left":"-2000px"},"normal");
+                var rezult=0;
+                for (var i=0;i<5;i++){if (UserAnswers[i]===RightAns[i])rezult++;};
+                    $("#res")[0].innerHTML="Ваш вынік: "+rezult+ " з 5 пытанняў";
+                $("#result").animate({"left":"50%"},"normal");
+            }
+            $mainWord[0].innerHTML=questBase[questNumber][0];
+            $p1[0].innerHTML=questBase[questNumber][1];
+            $p2[0].innerHTML=questBase[questNumber][2];
+            $p3[0].innerHTML=questBase[questNumber][3];
+            $p4[0].innerHTML=questBase[questNumber][4];
+            $p5[0].innerHTML=questBase[questNumber][5];
+            RightAns[questNumber]=questBase[questNumber][6];
+
+            document.getElementById("var1").style.left=0+"%";
+            document.getElementById("var2").style.left=35+"%";
+            document.getElementById("var3").style.left=70+"%";
+            document.getElementById("var4").style.left=15+"%";
+            document.getElementById("var5").style.left=55+"%";
+
+            document.getElementById("var1").style.top=10+"px";
+            document.getElementById("var2").style.top=10+"px";
+            document.getElementById("var3").style.top=10+"px";
+            document.getElementById("var4").style.top=150+"px";
+            document.getElementById("var5").style.top=150+"px";
+            console.log(UserAnswers)
+
+
+        })
+    })
+
+</script>
+</body>
+</html>

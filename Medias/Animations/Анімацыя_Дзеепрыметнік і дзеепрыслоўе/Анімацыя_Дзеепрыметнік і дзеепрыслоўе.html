@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	#GUIPanel1{
+		width: 100%;
+		height: 50px;
+		border:1px solid black;
+		z-index: 10;
+		-webkit-user-select: none;
+	}
+	#main{
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 1000px;
+		height: 600px;
+		margin-left: -500px;
+		margin-top: -300px;
+		box-shadow: 0 0 0 1px lightgray;
+		overflow: hidden;
+		-webkit-user-select: none;
+	}
+	#TextPanel{
+		position: absolute;
+		width:100%;
+		height: 550px;
+		top: 50px;
+		-webkit-user-select: none;
+	}	
+	#but1{
+		position: absolute;
+		border:1px solid black;
+		z-index: 200;
+		left: 80%;
+		-webkit-user-select: none;
+		font:30px "Times New Roman";
+		top: 15px;
+		width: 200px;
+	}
+	.sentDiv{
+		position: absolute;
+		width: 1000px;
+		height: 250px;
+		top: 175px;
+		left: 101%;
+		text-align:  center;	
+		z-index: 1;	
+		-webkit-user-select: none;
+	}
+	#sent1{
+		left: 0;
+		-webkit-user-select: none;
+	}
+	.sentence{
+		display: inline-table;
+		position: relative;
+		text-align: center;
+		font:50px "Times New Roman";
+		margin-right: 30px;		
+		line-height: 50px;
+		margin-bottom: -20px;
+		-webkit-user-select: none;		
+	}
+	.zpt{
+		position: absolute;
+		height: 65px;
+		width: 15px;
+		font:55px "Times New Roman";
+		text-align: center;
+		border:1px solid green;
+		top: -30px;	
+		z-index: 10;	
+		-webkit-user-select: none;
+		padding-top: -30px;
+	}
+	#zpt1{		left: 15%;	}
+	#zpt2{		left: 30%;	}
+	#zpt3{		left: 45%;	}
+	#zpt4{		left: 60%;	}
+	#zpt5{		left: 75%;	}
+	#blocker{
+		position: absolute;
+		left: 0;
+		top: 0px;
+		z-index: 5;
+		width: 100%;
+		height: 600px;
+		-webkit-user-select: none;
+	}
+	.round{
+		position: absolute;
+		top: 550px;
+		width: 30px;
+		height: 30px;			
+		border-radius: 15px;
+		transition: ease-out 1s;
+		-webkit-user-select: none;
+	}
+	#round1{		left: 375px;	}
+	#round2{		left: 425px;	}
+	#round3{		left: 475px;	}
+	#round4{		left: 525px;	}
+	#round5{		left: 575px;	}
+	
+	#ResultedMessage{
+		position: absolute;
+		width: 100%;
+		text-align: center;
+		top: 10%;
+		font:50px "Times New Roman";
+		-webkit-user-select: none;
+	}
+</style>
+<body>
+	<div id="main">	
+		<div id="TextPanel">
+			<p id="zpt1" class="zpt" onselect="return false">,</p>
+			<p id="zpt2" class="zpt"onselect="return false">,</p>
+			<p id="zpt3" class="zpt"onselect="return false">,</p>
+			<p id="zpt4" class="zpt"onselect="return false">,</p>
+			<p id="zpt5" class="zpt"onselect="return false">,</p>
+			
+			<p id="but1">Наступны сказ</p>
+			
+			<div id="blocker"></div>
+			<div id="sent1" class="sentDiv"></div>
+			<div id="sent2" class="sentDiv"></div>
+			<div id="sent3" class="sentDiv"></div>
+			<div id="sent4" class="sentDiv"></div>
+			<div id="sent5" class="sentDiv"></div>
+		</div>		
+		<div id="ResultPanel" class="sentDiv"><p id="ResultedMessage">asdasdasd</p></div>		
+			<div id="round1" class="round"></div>
+			<div id="round2" class="round"></div>
+			<div id="round3" class="round"></div>
+			<div id="round4" class="round"></div>
+			<div id="round5" class="round"></div>		
+	</div>
+</body>
+<script>
+//---------------------------------------------------SENTENCES
+var sentences=[];
+sentences[0]="Неба, густа ўсеянае зоркамі, яшчэ не святлела на ўсходзе.";
+sentences[1]="Скуты марозам, снег ззяў і рыпеў пад нагамі.";
+sentences[2]="Васіль прагна ўдыхнуў паветра, напоенае азонам, і радасна ўсміхнуўся."; 
+sentences[3]="У сасновым бары, нагрэтым сонцам, моцна пахла смалой."; 
+sentences[4]="Лезучы ў нерат, не пройдзеш уперад.";
+sentences[5]="Лісце ціха падала на зямлю, усцілаючы яе яркім рознакаляровым дываном.";  
+sentences[6]="Вучні, нахіліўшыся над сталом, рыхтуюць урокі."; 
+sentences[7]="На вуліцы ўжо крычалі дзеці, бегучы ў школу."; 
+sentences[8]="Алешу проста хацелася спяваць, працуючы на камбайне.";
+sentences[9]="Нельга чытаць лежачы.";
+sentences[10]="Устрывожаная вясной, зіма не знайшла сабе ратунку."; 
+sentences[11]="Дзяўчына, слухаючы апавяданне сяброўкі, ішла побач."; 
+sentences[12]="Усхваляваная выпадкам, яна доўга маўчала."; 
+sentences[13]="Глыбока ўдыхаючы паветра, Марк з усяе сілы працаваў вёсламі."; 
+sentences[14]="Ідучы па кладцы, на бакі не глядзі.";
+sentences[15]="Захопленыя сваімі заняткамі, мы і не заўважылі госця."; 
+sentences[16]="Мокрыя ад дажджу, пліты настыла блішчэлі пад сонцам."; 
+sentences[17]="Прывабленыя пахам мёду, над булкай звінелі пчолы.";  
+sentences[18]="Налюбаваўшыся баравікамі, Лабановіч, не спяшаючыся, прыступіў да збору."; 
+sentences[19]="Паднятыя і ачышчаныя грыбніком баравікі прыемна халадзілі рукі.";
+sentences[20]="Ты не гніся, брат, ніколі траўкаю пахілай."; 
+sentences[21]="Уключыўшы святло, я чытаю.";
+sentences[22]="Хлопцы беглі без аглядкі, часта спатыкаючыся і падаючы.";
+sentences[23]="Да самай хаты прымыкае чысты двор, абсаджаны дрэвамі.";
+sentences[24]="Паабапал дарогі стаіць лес, пасівелы ад інею.";
+sentences[25]="Ліпеньскае сонца, разлітае шырокім кругам, вісіць высока на небе.";
+sentences[26]="Акно, пафарбаванае бацькам, яшчэ добра не высахла.";
+sentences[27]="Сена, змочанае дажджом, запахла яшчэ мацней."; 
+sentences[28]="Мурашка, кінуўшы свой груз, пабегла хутчэй да мурашніка.";
+sentences[29]="Зарываючыся носам, хутка прапоўз чорны жук, праляцеў чмель, натужна гудучы.";
+sentences[30]="Зялё най атавай укрыліся выкашаныя лугі.";
+//-----------------------------------------------------Get random 5 sentences
+var workingArr=[];
+var indexArr=[];
+i=0;
+while (i<5){
+	y=0;
+	g=Math.floor(Math.random()*30);
+	for (var j=0;j<sentences.length;j++){
+		if (g==indexArr[j]){y=1;break;}
+	}	
+	if (y==0){
+		workingArr.push(sentences[g]);
+		indexArr.push(g);
+		i++;
+	}
+}	
+//------------------------------------------------------Get answers array
+var rightAnswers=[[],[],[],[],[]];
+for (var i=0;i<5;i++){
+	temp=workingArr[i];
+	tempNum=0;
+	for (var j=0;j<temp.length;j++){
+		if (temp[j]==' '){tempNum=j;}
+		if (temp[j]==','){
+			if (tempNum>0){
+				rightAnswers[i].push(temp.substring(tempNum+1,j));
+			}
+			else {
+				rightAnswers[i].push(temp.substring(tempNum,j));
+			}
+			
+		}
+	}
+}
+//-----------------------------------------------------Get sentenses without ,
+var workingArr2=[[],[],[],[],[]];
+for (var i=0;i<5;i++){
+	workingArr2[i]=workingArr[i].replace(/,/g,'');
+}
+//-----------------------------------------------------Get splitted sentenses
+var spanArr=[[],[],[],[],[]];
+var spans=[[],[],[],[],[],];
+var displaySent=document.getElementsByClassName('sentDiv');
+for (var i=0;i<5;i++){
+	var tempStr=workingArr2[i].split(' ');
+	for (var j=0;j<tempStr.length;j++){
+		var tempEl=document.createElement('p');		
+		spanArr[i].push(tempStr[j]);
+		displaySent[i].appendChild(tempEl);	
+		spans[i].push(tempEl);	
+		tempEl.style.width=tempStr[j].length*25+"px";
+		tempEl.className='sentence';
+		tempEl.innerText=tempStr[j];
+	}
+}
+//-----------------------------------------------------Drag and drop zpt
+var zpt=document.getElementsByClassName('zpt');
+var draggingElement='';
+zpt[0].onmousedown=function(){	draggingElement=zpt[0];}
+zpt[1].onmousedown=function(){	draggingElement=zpt[1];}
+zpt[2].onmousedown=function(){	draggingElement=zpt[2];}
+zpt[3].onmousedown=function(){	draggingElement=zpt[3];}
+zpt[4].onmousedown=function(){	draggingElement=zpt[4];}
+
+window.onmousemove=function(e){
+	if (draggingElement!=''){		
+		draggingElement.zIndex=100;
+		draggingElement.style.left=e.clientX-document.getElementById('main').offsetLeft+"px";
+		draggingElement.style.top=e.clientY-document.getElementById('main').offsetTop-100+"px";
+	}	
+}
+window.onmouseup=function(){
+	if (draggingElement!=''){
+		draggingElement='';
+	}
+}
+//-----------------------------------------------------Spinning to next question
+var UserRightAnswers=0;
+var round=document.getElementsByClassName('round');
+var currentQuest=0;
+var but=document.getElementById('but1');
+but.onclick=function(){
+	if (currentQuest<5){
+		if (checkRight(spans[currentQuest],zpt,currentQuest)==1){
+		UserRightAnswers+=1;
+		round[currentQuest].style.backgroundColor="green";
+	}	
+	else {
+		round[currentQuest].style.backgroundColor="red";
+	}
+	displaySent[currentQuest].style.left=-101+'%';
+	setZptToDefault();	
+	currentQuest++;
+	if (currentQuest!=6){
+		displaySent[currentQuest].style.left=0;
+	}
+			
+	}	
+	if (currentQuest==5){		
+		document.getElementById("ResultedMessage").innerHTML="Ваш вынік: "+UserRightAnswers+" з 5 сказаў";
+		zpt[1].style.top=-3000+"px";
+		zpt[2].style.top=-3000+"px";
+		zpt[3].style.top=-3000+"px";
+		zpt[4].style.top=-3000+"px";
+		zpt[0].style.top=-3000+"px";
+		but.style.top=-3000+"px";
+	}
+}
+
+function setZptToDefault(){
+	zpt[0].style.top=-30+"px";zpt[0].style.left=15+"%";
+	zpt[1].style.top=-30+"px";zpt[1].style.left=30+"%";
+	zpt[2].style.top=-30+"px";zpt[2].style.left=45+"%";
+	zpt[3].style.top=-30+"px";zpt[3].style.left=60+"%";
+	zpt[4].style.top=-30+"px";zpt[4].style.left=75+"%";
+}
+//---------------------Checking right
+var userAnswers=[];
+
+function checkRight(spanA,zptArr,currQuest){	
+		var userAnswerArr=[];	
+			for (var i=0;i<5;i++){
+				var zptx=zptArr[i].getBoundingClientRect().left;				
+				var zpty=zptArr[i].getBoundingClientRect().top;				
+				if (zpty>150){
+					var tempArr=[];
+					for (var j=0;j<spanA.length;j++){					
+						var spanx=spanA[j].getBoundingClientRect().left;	
+						var spany=spanA[j].getBoundingClientRect().top;
+						var spanw=spanA[j].getBoundingClientRect().width;
+						var spanh=spanA[j].getBoundingClientRect().height;
+						if((zpty>(spany-50))&&(zpty<(spany+spanh+50))){
+								if ((zptx>spanx)&&(zptx<(spanx+spanw+50))){										
+										tempArr.push(spanA[j].innerText);										
+									}									
+								}								
+							}													
+						if (tempArr.length==1){userAnswerArr.push(tempArr[0])}
+						else {userAnswerArr.push(tempArr[tempArr.length-1])};						
+						}									
+					}													
+		return (isTrue(userAnswerArr,rightAnswers[currQuest]));
+}
+
+
+function findMax(arr,el){
+	el=arr[0];
+	max=arr[0].offsetLeft;
+	for (var i=1;i<arr.length;i++){
+		if ((arr[i].offsetLeft>max)&&((arr[i+1]==undefined)||(arr[i+1].offsetTop>arr[i].offsetTop))){
+			if (el.offsetTop>(arr[i].offsetTop-50)){
+				if (el.offsetTop<(arr[i].offsetTop+50)){
+					max=arr[i].offsetLeft;
+					el=arr[i];
+				}
+			}			
+		}
+	}
+	return el;
+}
+function isTrue(Uarr,Aarr){		
+	Uarr=Uarr.sort();
+	Aarr=Aarr.sort();
+	var Uarr1=DeleteDublicate(Uarr);		
+	var result=0;
+	if ((Uarr.length==0)&&(Aarr.length==0)){result=1;}
+	if (Uarr.length!=Aarr.length){result=0;}
+	else {
+		var temp=0;
+		for (var i=0;i<Uarr.length;i++){
+			for (var j=i;j<Uarr.length;j++){
+				if (Uarr[i]==Aarr[j]){temp+=1;}
+			}
+		}
+		if (temp==Uarr.length){result=1;}
+	}
+	return result;
+}
+
+function DeleteDublicate(arr){	
+	var newElementsCount=0;
+	arr2=[];
+		for (var i=0;i<arr.length;i++){
+			var canAdd=1;
+			for (var j=i+1;j<arr.length;j++){
+				if (arr[i]===arr[j]){
+					canAdd=0;
+				}				
+			}
+			if (arr[i]===undefined){
+					canAdd=0;
+				}
+			if (canAdd==1){arr2.push(arr[i])};
+		}		
+	return arr2;
+}
+
+	</script>
+</html>

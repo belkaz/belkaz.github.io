@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+    #main{
+        position: absolute;
+        width: 900px;
+        height: 600px;
+        border:1px solid black;
+        overflow: hidden;
+        top: 50%;
+        left: 50%;
+        margin-left: -450px;
+        margin-top: -300px;
+    }
+    #sent{
+        position: absolute;
+        left: 0;
+        font:100px "Times New Roman";
+        width: 100%;
+        height: 70px;
+        top: 50%;
+        margin-top: -75px;
+        text-align: center;
+        -webkit-user-select: none;
+    }
+    #GUIPanel{
+        position: absolute;
+        top: 520px;
+        height: 100px;
+        width: 100%;
+        display: inline;
+    }
+    .GUI{
+        position: absolute;
+        width: 25%;
+        left: 0;
+        font:35px "Times New Roman";
+        text-align: center;
+        border-left:1px solid lightgray;
+        border-right: 1px solid lightgray;
+        -webkit-user-select: none;
+    }
+    #GUI1{  left: 0;    }
+    #GUI2{  left:25%;   }
+    #GUI3{  left:50%;   }
+    #GUI4{  left:75%;   }
+    .GUI:hover{
+        background-color: lightblue;
+    }
+    .q{
+        position: absolute;
+        top: 25px;
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;          
+    }
+   
+    #result{
+        position: absolute;
+        left: 150%;
+        top: 50%;
+        width: 900px;
+        height: 600px;
+        margin-top: -150px;
+        margin-left: -450px;
+        display: none;        
+    }
+     #resultText{
+        position: absolute;
+        left: 0;
+        width: 100%;
+        font: 55px "Times New Roman";
+        height: 60px;
+        top: 25%;
+        margin-top: -30px;
+        text-align: center;
+    }
+</style>
+<body>
+	<div id="main">
+		<p id="sent">разумны</p>
+	
+	<div id="GUIPanel">
+		<p id="GUI1" class="GUI"> Прыметнік </p>
+        <p id="GUI2" class="GUI"> Назоўнік </p>
+        <p id="GUI3" class="GUI"> Дзеяслоў </p>
+        <p id="GUI4" class="GUI"> Займеннік </p>        
+	</div>
+   
+	<div id="semofor">
+		<div id="q1" class="q"></div>
+		<div id="q2" class="q"></div>
+		<div id="q3" class="q"></div>
+		<div id="q4" class="q"></div>
+		<div id="q5" class="q"></div>
+		<div id="q6" class="q"></div>
+		<div id="q7" class="q"></div>
+		<div id="q8" class="q"></div>
+		<div id="q9" class="q"></div>
+		<div id="q10" class="q"></div>		
+	</div>
+   </div>
+   <div id="result">
+       <p id="resultText">asdasd</p>
+   </div>  
+</body>
+<script>
+var words=[];
+for (var i=0;i<4;i++){words[i]=[]};
+words[0][0]='высокі';
+words[0][1]='разумны';
+words[0][2]='прыгожы';
+words[0][3]='зялёны';
+words[0][4]='сіні';
+words[0][5]='ружовы';
+words[0][6]='чырвоны';
+words[0][7]='белы';
+words[0][8]='глыбокі';
+words[0][9]='шаноўны';
+words[0][10]='паважаны';
+words[0][11]='далёкі';
+words[0][12]='блізкі';
+words[0][13]='малы';
+words[0][14]='нізкі';
+words[0][15]='чорны';
+words[0][16]='страшэнны'; 
+words[0][17]='пачварны';
+words[0][18]='прывабны';
+words[0][19]='лёгкі';
+words[0][20]='мяккі';
+words[0][21]='цяжкі';
+words[0][22]='школьны';
+words[0][23]='бацькоўскі';
+words[0][24]='дзіцячы';
+words[0][25]='матулін';
+words[0][26]='жорсткі';
+words[0][27]='смелы';
+words[0][28]='адважны';
+words[0][29]='труслівы'; 
+words[0][30]='ганебны'; 
+words[0][31]='прыкры';
+words[0][32]='непрыемны';
+words[0][33]='мужны';
+//назоуник
+words[1][0]='дом';
+words[1][1]='сцяна';
+words[1][2]='дзеці';
+words[1][3]='настаўнік';
+words[1][4]='школа';
+words[1][5]='машына'; 
+words[1][6]='вучні';
+words[1][7]='дошка';
+words[1][8]='настаўніцкая'; 
+words[1][9]='камп’ютар'; 
+words[1][10]='барацьба'; 
+words[1][11]='дзядзька'; 
+words[1][12]='снег';
+words[1][13]='сняжынка';
+words[1][14]='плот';
+words[1][15]='сурвэтка';
+words[1][16]='кажан';
+words[1][17]='кавун';
+words[1][18]='гарбуз';
+words[1][19]='вусень';
+words[1][20]='слімак';
+words[1][21]='абрус'; 
+words[1][22]='гасціннасць';
+words[1][23]='шчасце';
+words[1][24]='бяда';
+words[1][25]='любоў';
+words[1][26]='каханне';
+words[1][27]='недавер';
+words[1][28]='бусел';
+words[1][29]='шпак';
+words[1][30]='лыжы'; 
+words[1][31]='бігудзі';
+words[1][32]='кансервы';
+words[1][33]='нож';
+words[1][34]='відэлец';
+words[1][35]='сукенка';
+words[1][36]='штаны'; 
+words[1][37]='восень'; 
+words[1][38]='канікулы';
+words[1][39]='пяцёрка';		
+//дзеяслоу	
+words[2][0]='хадзіць';
+words[2][1]='пісаць';
+words[2][2]='чытаць';
+words[2][3]='ляжаць';
+words[2][4]='глядзець';
+words[2][5]='хварэць';
+words[2][6]='гаварыць';
+words[2][7]='любіць';
+words[2][8]='кахаць';
+words[2][9]='адказваць';
+words[2][10]='маляваць';
+words[2][11]='ненавідзець';
+words[2][12]='маўчаць';
+words[2][13]='скакаць';
+words[2][14]='спаць';
+words[2][15]='працаваць';
+words[2][16]='ехаць';
+words[2][17]='стаяць';
+words[2][18]='падкрэсліваць';
+words[2][19]='часаць';
+words[2][20]='бубніць';
+words[2][21]='спяваць';
+words[2][22]='набіраць';
+words[2][23]='карміць';
+words[2][24]='кашляць';
+words[2][25]='выздараўліваць';
+words[2][26]='радавацца';
+words[2][27]='будаваць';
+words[2][28]='думаць';
+words[2][29]='старацца';
+words[2][30]='працягваць';
+words[2][31]='імкнуцца';
+words[2][32]='лятаць';
+words[2][33]='шаптаць';
+words[2][34]='крычаць';
+words[2][35]='гуляць';	
+//займенник
+words[3][0]='я';
+words[3][1]='нас';
+words[3][2]='мы';
+words[3][3]='нехта';
+words[3][4]='хтосьці';
+words[3][5]='сябе';
+words[3][6]='вы';
+words[3][7]='ніхто';
+words[3][8]='нішто';
+words[3][9]='нешта';
+words[3][10]='увесь';
+words[3][11]='ты';
+words[3][12]='яны';
+words[3][13]='сам';
+words[3][14]='усякі';
+words[3][15]='мой';
+words[3][16]='твой';
+words[3][17]='іншы';
+words[3][18]='кожны';
+words[3][19]='ваш';
+
+var semafors=document.getElementsByClassName('q');
+
+for (var i=0;i<semafors.length;i++){
+    semafors[i].style.left=200+i*50+"px";        
+}
+
+var currentArr=[];
+var ansArr=[];
+var y=0;
+while (y<10){
+    var v=Math.floor(Math.random()*3);
+    var t=Math.floor(Math.random()*words[v].length);
+    var temp=words[v][t];
+    var canAdd=1;
+    for (var i=0;i<currentArr.length;i++){
+        if (currentArr[i]==temp){canAdd=0;}
+    }
+    if (canAdd==1){
+        currentArr.push(temp);
+        ansArr.push(v);
+        y++;
+    }    
+}
+
+var screenWord=document.getElementById('sent');
+var currentIndex=0;
+screenWord.innerText=currentArr[currentIndex];
+
+var buttons=document.getElementsByClassName('GUI');
+var userRightAnswers=0;
+    for (var i=0;i<4;i++){
+        buttons[i].onclick=function(){
+            if((this.id[3]-1)==ansArr[currentIndex]){
+                userRightAnswers+=1;
+                semafors[currentIndex].style.backgroundColor="green";
+                }
+            else {
+               semafors[currentIndex].style.backgroundColor="red"; 
+            }    
+            currentIndex+=1;
+            if (currentIndex<10){
+            screenWord.innerText=currentArr[currentIndex];
+            }
+            else{
+                document.getElementById('main').style.display="none";
+                document.getElementById('result').style.display='inline';
+                document.getElementById('result').style.left=50+"%";
+                var resText=document.getElementById('resultText');
+                resText.innerText="Ваш вынік: "+userRightAnswers+" дакладна з 10 адказаў";
+                if (userRightAnswers<6){resText.style.color='red';}
+                else {resText.style.color='green';}
+            }
+        }
+    }
+
+
+</script>
+</html>	

@@ -1,0 +1,61 @@
+ #main{
+     position: absolute;
+     width: 1000px;
+     height: 700px;
+     left: 50%;
+     top: 50%;
+     margin-left: -500px;
+     margin-top: -350px;
+     border: 1px solid black;
+     overflow: hidden;
+ }
+ #quest{
+        position: absolute;       
+        width: 950px;
+        left: 25px;
+        top: -1000px;
+        font: 60px "Times New Roman";
+        text-align: center;
+        z-index: 200;   
+             
+    }
+  
+    #answ1{
+        position: absolute;
+        top: 1530px;        
+        z-index: 200;
+        width: 450px;
+        left: 25px;
+        font: 60px "Times New Roman";
+        text-align: center;
+    }
+    #answ1:hover,#answ2:hover{        
+        font:bold 70px "Times New Roman";
+            
+    }
+    #answ2{
+        position: absolute;
+        top: 1530px;        
+        z-index: 200;
+        width: 450px;
+        left: 525px;
+        font: 60px "Times New Roman";
+        text-align: center;
+    }
+    .block{
+        position: absolute;
+        width: 333px;
+        height: 233px;
+        background-color: #00BBAA;
+        border-radius: 8px;
+        background-image: url("./backs/block.png");
+    }  
+    .badBlock{
+         position: absolute;
+        width: 333px;
+        height: 233px;
+        background-color: wheat;
+        border-radius: 8px;
+        background-image: url("./backs/bad.png");
+    } 
+    

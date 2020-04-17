@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Прынцып будовы</title>
+</head>
+<style>
+	#main{
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-left: -500px;
+		margin-top: -350px;
+		width: 1000px;
+		height: 700px;
+		overflow: hidden;
+		border-radius: 40px;
+		font: 35px "Arial";
+	}
+	.leftPanel{
+		text-align: right;
+		position: absolute;
+		width: 1250px;		
+		height:100%;
+		border-right: 1px solid black;
+		margin-left: -1000px;
+		font: 35px "Arial";
+	}
+	.rightPanel{
+		position: absolute;
+		width: 550px;
+		left: 750px;
+		height: 100%;
+		border-left: 1px solid black; 
+	}
+	.middle{
+		position: absolute;
+		left: 200px;
+		width: 600px;
+		height: 700px;
+	}
+	#word{
+		position: absolute;
+		left: 0px;
+		top: 50%;
+		width: 600px;
+		height: 75px;
+		font: 75px "Arial";
+		text-align: center;
+		margin-top: -40px;
+		-webkit-user-select: none;
+	}
+	.answer{
+		position: absolute;
+		width: 250px;
+		height: 40px;
+		text-align: center;
+		font: 34px "Arial";
+		margin-left: 140px;
+		border-radius: 10px;
+		opacity: 0.7;
+	}
+	#confirm{
+		position: absolute;
+		top: 300px;
+		left: 50%;
+		margin-left: -300px;
+		width: 600px;
+		text-align: center;
+		font: 50px "Arial";
+	}
+</style>
+<body>
+	<div id="main">
+		<div class="leftPanel">марфалагічны</div>
+		
+		<div class="rightPanel">фанетычны</div>
+		<div class="middle">
+			<p id="word" draggable="true">барацьба</p>
+		</div>
+	</div>
+	<div id="confirm">
+		
+	</div>
+	<p id="word1" class="answer"/>
+	<p id="word2" class="answer"/>
+	<p id="word3" class="answer"/>
+	<p id="word4" class="answer"/>
+	<p id="word5" class="answer"/>
+	<p id="word6" class="answer"/>
+	<p id="word7" class="answer"/>
+	<p id="word8" class="answer"/>
+	<p id="word9" class="answer"/>
+	<p id="word0" class="answer"/>
+</body>
+<script>
+var test=[]; for (j=0;j<100;j++){test[j]=[]};	
+	test[0][0]='дождж';
+	test[0][1]='барацьба';
+	test[0][2]='мяккі';
+	test[0][3]='лёгкі';
+	test[0][4]='смяешся';
+	test[0][5]='снег';
+	test[0][6]='матчын';
+	test[0][7]='на дошцы';
+	test[0][8]='просьба';
+	test[0][9]='вакзал';
+	test[0][10]='футбол';
+	test[0][11]='лічба';
+	test[0][12]='грамадства';
+	test[0][13]='суседскі';
+	test[0][14]='не бойся';
+	test[0][15]='мыешся';
+	test[0][16]='не бойся';
+	test[0][17]='дзверы';
+	test[0][18]='песня';
+	test[0][19]='семестр';
+	test[0][20]='цвёрды';
+	test[0][21]='бясшумны';
+	test[0][22]='грыб';
+	test[0][23]='лодка';
+	test[0][24]='зжаць';
+	test[0][25]='французскі';
+	test[1][0]='зямля';
+	test[1][1]='дом';
+	test[1][2]='галава';
+	test[1][3]='сонца';
+	test[1][4]='балота';
+	test[1][5]='дым';
+	test[1][6]='узвышша';
+	test[1][7]='стагоддзе';
+	test[1][8]='навука';
+	test[1][9]='пісаць';
+	test[1][10]='бары';
+	test[1][11]='заказаць';
+	test[1][12]='клас';
+	test[1][13]='ліст';
+	test[1][14]='траўка';
+	test[1][15]='спявак';
+	test[1][16]='абыграць';
+	test[1][17]='быццам';
+	test[1][18]='ляснік';
+	test[1][19]='нос';
+	test[1][20]='том';
+	test[1][21]='літара';
+	test[1][22]='ежа';
+	test[1][23]='вусень';
+	test[1][24]='бор';
+	test[1][25]='гаворка';
+	test[1][26]='клён';
+	test[1][27]='удар';
+		
+
+var words=document.getElementsByClassName('answer');
+for (i=0;i<words.length;i++){words[i].style.opacity=0;}
+
+var quests=[];
+var answers=[];
+var questCounter=0;
+var rightAnswers=0;
+
+while (questCounter<10){
+	q1=Math.floor(Math.random()*2);
+	q2=Math.floor(Math.random()*test[q1].length);
+	var canAdd=1;
+	for (i=0;i<quests.length;i++){
+		if (test[q1][q2]==quests[i]){
+			canAdd=0;
+		}
+	}
+	if (canAdd==1){quests[questCounter]=test[q1][q2];answers[questCounter]=q1;questCounter++;canAdd=0;}	
+}	
+
+var nowQuest=0;
+	
+var q1=document.getElementById("word");
+q1.innerHTML=quests[nowQuest];
+	
+var TopLeft=580;
+var TopRight=580;	
+	
+q1.onmousedown = function() {
+   var self = this
+   var target=1;
+ 	document.onmousemove = function(e) {
+    e = e || event
+    self.style.left = e.pageX-700+'px' 
+    self.style.top = e.pageY-25+'px' 
+  
+  	document.getElementsByClassName('leftPanel')[0].onmouseover=function(){
+		  if (self!=null){
+		  this.style.backgroundColor='rgb(95,233,122)';
+		  target=this;
+		  }
+	  }
+	 document.getElementsByClassName('rightPanel')[0].onmouseover=function(){
+		  this.style.backgroundColor='rgb(95,233,122)';
+		  target=this;
+	  }
+	  document.getElementsByClassName('leftPanel')[0].onmouseout=function(){
+		  this.style.backgroundColor='white';
+		  target=null;
+	  }
+	  document.getElementsByClassName('rightPanel')[0].onmouseout=function(){
+		  this.style.backgroundColor='white';
+		  target=null;
+	  }
+	 document.onmouseup = function() {
+		if (target.className!=undefined){
+			var nowAnswer=-1;
+			if (target.className=='leftPanel'){
+				nowAnswer=0;
+				words[nowQuest].innerHTML=quests[nowQuest];
+				words[nowQuest].style.left=0+"px";
+				words[nowQuest].style.top=TopLeft+"px";
+				words[nowQuest].style.opacity=1;	
+				TopLeft-=40;		
+			}
+			if (target.className=='rightPanel'){
+				nowAnswer=1;
+				words[nowQuest].innerHTML=quests[nowQuest];
+				words[nowQuest].style.left=750+"px";
+				words[nowQuest].style.top=TopRight+"px";
+				words[nowQuest].style.opacity=1;	
+				TopRight-=40;
+			}
+			if (nowAnswer==answers[nowQuest]){
+				words[nowQuest].style.backgroundColor="green";	
+				rightAnswers++;			
+			}
+			else {
+				words[nowQuest].style.backgroundColor="red";	
+			}
+			nowQuest++;
+			if (nowQuest<10){
+			q1.innerHTML=quests[nowQuest];
+			q1.style.left=0;
+			}
+			else{
+				document.getElementById('main').style.opacity=0;
+				for (i=0;i<10;i++){words[i].style.left=-1000+"px";}
+				document.getElementById('confirm').innerHTML="Вынік: "+rightAnswers+" з 10";
+			}
+			
+		}
+    	document.onmousemove = null;		
+ 	 }
+  }  
+}
+
+
+</script>
+</html>
